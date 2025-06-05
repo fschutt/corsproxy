@@ -164,7 +164,9 @@ fn convert_spin_response_to_mock(r: spin_sdk::http::Response) -> Result<mock::Ht
     
     let mut headers = BTreeMap::new();
     for (k, v) in r.headers() {
-        headers.insert(k.to_string(), v.as_str().unwrap_or("").to_string());
+        if !is_cors_header(k) {
+            headers.insert(k.to_string(), v.as_str().unwrap_or("").to_string());
+        }
     }
 
     let body = r.into_body();
@@ -220,4 +222,9 @@ fn is_hop_by_hop_header(name: &str) -> bool {
         "connection" | "keep-alive" | "proxy-authenticate" | 
         "proxy-authorization" | "te" | "trailers" | "transfer-encoding" | "upgrade"
     )
+}
+
+fn is_cors_header(name: &str) -> bool {
+    let name_lower = name.to_lowercase();
+    name_lower.starts_with("access-control-") || name_lower == "vary"
 }
