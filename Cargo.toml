@@ -2,6 +2,9 @@
 name = "corsproxy"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
+authors = ["Felix Schütt <felix.schuett@maps4print.com>"]
+description = ""
 
 [lib]
 crate-type = ["cdylib", "rlib"]
