@@ -1,6 +1,6 @@
 [package]
 name = "corsproxy"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 license = "MIT"
 authors = ["Felix Schütt <felix.schuett@maps4print.com>"]
