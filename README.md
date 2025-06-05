@@ -1,6 +1,7 @@
 # CORS Proxy for Fermyon Spin
 
-A lightweight, high-performance CORS proxy built for Fermyon Spin that forwards HTTP requests while adding permissive CORS headers and preventing caching.
+A lightweight, high-performance CORS proxy built for Fermyon Spin that forwards HTTP 
+requests while adding permissive CORS headers and prevents caching of stale data.
 
 ## Features
 
@@ -13,8 +14,8 @@ A lightweight, high-performance CORS proxy built for Fermyon Spin that forwards 
 
 ## Prerequisites
 
-- [Rust](https://rustup.rs/) (latest stable)
-- [Fermyon Spin](https://spin.fermyon.dev/install/) v2.0+
+- [Rust](https://rust-lang.org) (latest stable)
+- [Fermyon Spin](https://spin.fermyon.dev) v3.0+
 - `wasm32-wasip2` target: `rustup target add wasm32-wasip2`
 
 ## Quick Start
@@ -22,8 +23,8 @@ A lightweight, high-performance CORS proxy built for Fermyon Spin that forwards 
 ### 1. Clone and Build
 
 ```bash
-git clone <your-repo-url>
-cd cors-proxy
+git clone https://github.com/fschutt/corsproxy
+cd corsproxy
 spin build
 ```
 
@@ -37,14 +38,28 @@ spin up
 # http://localhost:3000
 ```
 
+Now, adjust the values in spin.toml for allowed outbound hosts and test with:
+
+```
+curl -H "x-target-url: https://www.google.com" http://localhost:3000
+```
+
+Now, you have your own, private proxy for deployment!
+
 ### 3. Deploy to Fermyon Cloud
 
 ```bash
 # Login to Fermyon Cloud
-spin cloud login
+spin login
 
 # Deploy
-spin cloud deploy
+spin deploy
+```
+
+Now, note the target url and test again with:
+
+```
+curl -H "x-target-url: https://www.google.com" https://your-prod-url.fermyon.dev
 ```
 
 ## Usage
@@ -134,27 +149,6 @@ And these cache prevention headers:
 - Use HTTPS for your proxy deployment
 
 ## Development
-
-### Project Structure
-
-```
-cors-proxy/
-├── src/
-│   └── lib.rs          # Main proxy logic
-├── Cargo.toml          # Rust dependencies
-├── spin.toml           # Spin configuration
-└── README.md
-```
-
-### Building
-
-```bash
-# Build for local development
-spin build
-
-# Build with optimizations
-cargo build --release --target wasm32-wasip2
-```
 
 ### Testing
 
